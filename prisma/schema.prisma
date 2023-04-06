@@ -1,0 +1,109 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  FosterParent
+  EmployeeCaregiver
+  Director
+  Bookkeeper
+  ProgramSupervisor
+  ResourceWorker
+  Unassigned
+}
+
+model User {
+  id String @id @default(uuid())
+  email String @unique
+  firstName String? @map("first_name")
+  lastName String? @map("last_name")
+  org Organization @relation(fields: [orgId], references: [id])
+  orgId String @map("org_id")
+  role Role @default(Unassigned)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+enum OrgType {
+  Opr
+  PlacingAgency
+  ServiceProvider
+  Unassigned
+}
+
+enum OrgEmailPolicy {
+  Open
+  Initials
+  FirstNameLastInitial
+  FullyRedacted
+}
+
+model Organization {
+  id String @id @default(uuid())
+  name String @unique
+  orgType OrgType @default(Unassigned)
+  users User[]
+  addresses OrganizationAddress[]
+  emailPolicy OrgEmailPolicy @default(FullyRedacted)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organization")
+}
+
+model OrganizationAddress {
+  id String @id @default(uuid())
+  organization Organization @relation(fields: [orgId], references: [id])
+  orgId String
+  street1 String
+  street2 String?
+  poBox String?
+  province String @default("Ontario")
+  city String
+  postalCode String?
+  primary Boolean @default(true)
+  label String @default("main")
+  startDate DateTime @default(now())
+  endDate DateTime?
+  billing Boolean @default(true)
+  shipping Boolean @default(true)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organization_address")
+}
+
+enum OrgEmailType {
+  Placement
+  Billiing
+  Admin
+  SRA
+  Unassigned
+}
+
+model OrganizationEmail {
+  id String @id @default(uuid())
+  type OrgEmailType @default(Unassigned)
+  email String
+  contactName String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("organization_email")
+}
