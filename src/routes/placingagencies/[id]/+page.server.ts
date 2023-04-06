@@ -1,4 +1,5 @@
 import { prisma } from '$lib/server/prisma';
+import type { OrgEmailType } from '@prisma/client';
 import { fail, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
@@ -10,7 +11,8 @@ export const load: PageServerLoad = async ({ params }) => {
                 id
             },
             include: {
-                addresses: true
+                addresses: true,
+                emailAddresses: true
             }
         })
         return {
@@ -46,6 +48,27 @@ export const actions: Actions = {
             })
         } catch (error) {
             return fail(500, { message: 'Unable to save address.'})
+        }
+
+        return {
+            status: 201
+        }
+    },
+    addEmail: async ({ request, params }) => {
+        const id = params.id || ""
+        const { type, email, contactName } = Object.fromEntries(await request.formData()) as { type: OrgEmailType, email: string, contactName: string}
+        try {
+            console.log(type, email, contactName)
+            await prisma.organizationEmail.create({
+                data: {
+                    orgId: id,
+                    type,
+                    email,
+                    contactName
+                }
+            })
+        } catch (error) {
+            return fail(500, { message: 'Unable to save email.'})
         }
 
         return {

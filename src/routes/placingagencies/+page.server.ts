@@ -6,6 +6,9 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async () => {
     try {
         const placingAgencies = await prisma.organization.findMany({
+            where: {
+                orgType: 'PlacingAgency'
+            },
             orderBy: [
                 {
                     name: 'asc'

@@ -58,6 +58,7 @@ model Organization {
   users User[]
   addresses OrganizationAddress[]
   emailPolicy OrgEmailPolicy @default(FullyRedacted)
+  emailAddresses OrganizationEmail[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -90,7 +91,7 @@ model OrganizationAddress {
 
 enum OrgEmailType {
   Placement
-  Billiing
+  Billing
   Admin
   SRA
   Unassigned
@@ -98,6 +99,8 @@ enum OrgEmailType {
 
 model OrganizationEmail {
   id String @id @default(uuid())
+  organization Organization @relation(fields: [orgId], references: [id])
+  orgId String
   type OrgEmailType @default(Unassigned)
   email String
   contactName String?
