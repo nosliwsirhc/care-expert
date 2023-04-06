@@ -1,6 +1,5 @@
 <script lang="ts">
 	export let id: string;
-	console.log(id);
 </script>
 
 <div class="row align-items-start">
