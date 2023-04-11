@@ -10,7 +10,6 @@
 
 <div class="card">
 	<div class="card-body">
-		<h5 class="card-title">Email</h5>
 		<h6 class="card-subtitle">{email.type}</h6>
 		<p class="card-text">
 			{email.email}<br/>
