@@ -9,7 +9,7 @@
 		<h2>New User</h2>
 	</div>
 </div>
-<form action="?/createUser" method="post">
+<form method="POST">
 	<div class="row mb-2">
 		<div class="col-6">
 			<label for="firstName" class="form-label">First Name</label>
@@ -42,7 +42,7 @@
 				<option value="Bookkeeper">Bookkeeper</option>
 				<option value="ProgramSupervisor">Program Supervisor</option>
 				<option value="ResourceWorker">Resource Worker</option>
-				<option value="Unassigned">Unassigned</option>
+				<option value="Unassigned" selected>Unassigned</option>
 			</select>
 		</div>
 		<div class="col">

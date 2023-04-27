@@ -4,6 +4,7 @@
 	import OrgAddressForm from '$lib/components/OrgAddressForm.svelte';
 	import OrgEmailForm from '$lib/components/OrgEmailForm.svelte';
 	import OrgEmail from '$lib/components/OrgEmail.svelte';
+	import { emailPolicyParser } from './helpers';
 
 	export let data: PageServerData;
 </script>
@@ -23,8 +24,8 @@
 				<div class="col-9">
 					<div class="card">
 						<div class="card-body">
-							<h5 class="card-title">VIP Emails</h5>
-							<h6 class="card-subtitle mb-2">{data.placingAgency.emailPolicy}</h6>
+							<h5 class="card-title">Important Email Info</h5>
+							<h6 class="card-subtitle mb-2">Email Policy for Client Names is <strong>{emailPolicyParser(data.placingAgency.emailPolicy)}</strong></h6>
 							<div class="row">
 								{#each data.placingAgency.emailAddresses as email}
 									<div class="col-4">

@@ -9,14 +9,12 @@
 		label: string;
 		primary: boolean;
 	};
-
-	let primaryAsString = address.primary ? 'Yes' : 'No';
 </script>
 
 <div class="card">
 	<div class="card-body">
 		<h5 class="card-title">Address</h5>
-		<h6 class="card-subtitle">{address.label}</h6>
+		<h6 class="card-subtitle">{address.label} {#if address.primary}(Primary){/if}</h6>
 		<p class="card-text">
 			{address.street1}<br/>
 			{#if address.street2}
@@ -30,8 +28,5 @@
 				{address.postalCode}<br/>
 			{/if}
 		</p>
-        <p class="card-text">
-            Primary? {primaryAsString}
-        </p>
 	</div>
 </div>

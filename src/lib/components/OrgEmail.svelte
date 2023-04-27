@@ -12,10 +12,10 @@
 	<div class="card-body">
 		<h6 class="card-subtitle">{email.type}</h6>
 		<p class="card-text">
-			{email.email}<br/>
 			{#if email.contactName}
 				{email.contactName}<br/>
 			{/if}
+			<a href="mailto:{email.email}">{email.email}</a>
 		</p>
 	</div>
 </div>

@@ -4,7 +4,7 @@ import { fail } from '@sveltejs/kit';
 
 export const load: PageServerLoad = (async () => {
     try {
-        const users = await prisma.user.findMany()
+        const users = await prisma.authUser.findMany()
         return {
             users
         }
