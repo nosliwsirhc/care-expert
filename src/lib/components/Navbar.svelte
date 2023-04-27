@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { Session, User } from 'lucia-auth';
+	import type { User } from 'lucia-auth';
 	import { onDestroy } from 'svelte';
 
 	let section = '';
@@ -12,15 +12,6 @@
 
 	onDestroy(unsubscribe);
 
-	export const links = [
-		{
-			href: '/placingagencies',
-			slug: 'placingagencies',
-			hyperlink: 'Placing Agencies',
-			permissions: []
-		},
-		{ href: '/admin/dashboard', slug: 'admin', hyperlink: 'Admin', permissions: ['Admin'] }
-	];
 </script>
 
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
@@ -45,11 +36,14 @@
 							>Placing Agencies</a
 						>
 					</li>
-					{#if (user.role = 'Admin')}
+					{#if (user.role === 'Admin')}
 						<li class="nav-item">
 							<a class="nav-link" class:active={section === 'admin'} href="/admin/dashboard">Admin</a>
 						</li>
 					{/if}
+					<li>
+						<a href="#" class="nav-link">{user?.firstName} ({user.role})</a>
+					</li>
 				{/if}
 			</ul>
 			<div class="d-flex">

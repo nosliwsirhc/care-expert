@@ -38,18 +38,4 @@ export const auth = lucia({
 	middleware: sveltekit()
 });
 
-// export const auth = lucia({
-// 	adapter: prismaAdapter(prisma),
-//     env: dev ? "DEV" : "PROD",
-// 	transformDatabaseUser(databaseUser) {
-// 		return {
-// 			userId: databaseUser.id,
-// 			email: databaseUser.email,
-// 			firstName: databaseUser.firstName,
-// 			lastName: databaseUser.lastName
-// 		}
-// 	},
-// 	middleware: sveltekit()
-// });
-
 export type Auth = typeof auth

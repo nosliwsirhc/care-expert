@@ -41,7 +41,6 @@ export const load: PageServerLoad = async () => {
 export const actions: Actions = {
     createPlacingAgency: async ({ request }) => {
         const form = await superValidate(request, orgSchema)
-        console.log(form)
         if (!form.valid) return fail(400, { form })
         try {
             await prisma.organization.create({

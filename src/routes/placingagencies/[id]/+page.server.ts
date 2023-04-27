@@ -58,7 +58,6 @@ export const actions: Actions = {
         const id = params.id || ""
         const { type, email, contactName } = Object.fromEntries(await request.formData()) as { type: OrgEmailType, email: string, contactName: string}
         try {
-            console.log(type, email, contactName)
             await prisma.organizationEmail.create({
                 data: {
                     orgId: id,

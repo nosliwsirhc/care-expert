@@ -32,6 +32,7 @@ export const actions: Actions = {
 			role: Role;
 			orgId: string;
 		};
+		console.log(`ADMIN/USERS/ADD: ${role}`)
 
 		try {
 			await auth.createUser({
